@@ -1,0 +1,56 @@
+require 'yaml'
+
+if File.file?('Nagrant.yaml')
+    settings = YAML.load_file('Nagrant.yaml')
+    confDir = File.expand_path('nodes_modules/nagrant', File.dirname(__FILE__))
+else
+    puts "Nagrant config file don't exists"
+    exit
+end
+
+Vagrant.require_version '>= 1.8.4'
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "ubuntu/trusty64"
+
+    config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+
+    config.vm.network :private_network, ip: settings["ip"] ||= "192.168.10.10"
+
+    settings["ports"].each do |port|
+        config.vm.network "forwarded_port", guest: port["from"], host: port["to"], auto_correct: true
+    end
+
+    config.vm.provider :virtualbox do |vm|
+        vm.customize ["modifyvm", :id, "--memory", settings["memory"] ||= "2048"]
+        vm.customize ["modifyvm", :id, "--cpus", settings["cpus"] ||= "1"]
+        vm.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+        vm.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        vm.customize ["modifyvm", :id, "--ostype", "Ubuntu_64"]
+    end
+
+    config.vm.synced_folder "./", settings["root"], create: true
+    if Vagrant.has_plugin?("vagrant-bindfs")
+      config.bindfs.bind_folder settings["root"], settings["root"]
+    end
+
+    config.vm.provision :shell, path: File.expand_path(confDir + "/provision/setup.sh")
+
+    if config.mongo?
+        config.vm.provision :shell, path: File.expand_path(confDir + "/provision/install-mongo.sh")
+        config.vm.network "forwarded_port", guest: 27017, host: 27047, auto_correct: true
+    end
+
+    if config.mysql?
+        config.vm.provision :shell, path: File.expand_path(confDir + "/provision/install-mysql.sh")
+        config.vm.network "forwarded_port", guest: 3306, host: 33060, auto_correct: true
+    end
+
+    if config.redis?
+        config.vm.provision :shell, path: File.expand_path(confDir + "/provision/install-redis.sh")
+        config.vm.network "forwarded_port", guest: 6379, host: 63790, auto_correct: true
+    end
+
+    config.vm.provision :shell, path: File.expand_path(confDir + "/provision/launch.sh"), run: 'always'
+    config.vm.provision :shell, path: "after.sh", run: 'always'
+end

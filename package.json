@@ -1,0 +1,15 @@
+{
+  "name": "nagrant",
+  "version": "1.0.0",
+  "description": "Nagrant is a pre-packaged Vagrant box providing a default environment in a minut,  without requiring you to instal redis, mongodb, nginx...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vagrant",
+    "box"
+  ],
+  "author": "Jérémy Barbe <echo@jeremy.sh> (jeremy.sh)",
+  "license": "MIT"
+}

@@ -1,0 +1,15 @@
+---
+root: "/home/vagrant/node"
+ip: "192.168.10.10"
+memory: 2048
+cpus: 1
+
+mysql: false
+redis: false
+mongo: false
+
+ports:
+  - from: 8080
+    to: 80
+  - from: 443
+    to: 44300
