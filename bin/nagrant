@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+'use strict';
+
+process.title = "nagrant";
+
+var pjson       = require(__dirname + '/../package.json'),
+    Clifier     = require('clifier'),
+    cli         = new Clifier.Cli('nagrant', pjson.version, pjson.description),
+    MakeCommand = require(__dirname + '/../src/makeCommand.js');
+
+
+cli.addCommand('make', 'create nagrant box', function () {
+    MakeCommand(...this.getArguments().concat([cli.end]));
+})
+.addArgument('--example', "Include creation of Nagrant.yml.example file", false, _ => true)
+.addArgument('--after', "Include creation of after script", false, _ => true);
+
+cli.run();
