@@ -6,10 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": "index.js",
   "keywords": [
     "vagrant",
     "box"
   ],
   "author": "Jérémy Barbe <echo@jeremy.sh> (jeremy.sh)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.1.4",
+    "clifier": "1.0.2"
+  }
 }
