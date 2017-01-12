@@ -6,9 +6,9 @@ var Clifier     = require('clifier'),
     basePath    = process.cwd(),
     makeCommand = {};
 
-makeCommand.copyFile = function (name, file, destination) {
+makeCommand.copyFile = function (name, file, destination, force) {
     return (cb) => {
-        if (fs.existsSync(basePath + destination)) cb(name + " already exists");
+        if (fs.existsSync(basePath + destination) && !force) cb(name + " already exists");
 
         var read    = fs.createReadStream(__dirname + file),
             write   = fs.createWriteStream(basePath + destination);
@@ -27,16 +27,16 @@ makeCommand.copyFile = function (name, file, destination) {
     };
 };
 
-module.exports = (example, after, end) => {
+module.exports = (force, example, after, end) => {
     var noop = (cb) => cb(null);
 
     Clifier.Stdout.Text.warning("Initializing Nagrant");
 
     async.parallel([
-        makeCommand.copyFile("Vagrantfile", "/stubs/Vagrantfile", "/Vagrantfile"),
-        makeCommand.copyFile("Nagrant.yml", "/stubs/Nagrant.yml", "/Nagrant.yml"),
-        example ? makeCommand.copyFile("Nagrant.yml.example", "/stubs/Nagrant.yml", "/Nagrant.yml.example") : noop,
-        after   ? makeCommand.copyFile("after.sh", "/stubs/after.sh", "/after.sh") : noop
+        makeCommand.copyFile("Vagrantfile", "/stubs/Vagrantfile", "/Vagrantfile", force),
+        makeCommand.copyFile("Nagrant.yml", "/stubs/Nagrant.yml", "/Nagrant.yml", force),
+        example ? makeCommand.copyFile("Nagrant.yml.example", "/stubs/Nagrant.yml", "/Nagrant.yml.example", force) : noop,
+        after   ? makeCommand.copyFile("after.sh", "/stubs/after.sh", "/after.sh", force) : noop
     ], function (err) {
         if (err) {
             Clifier.Stdout.Text.error(err);
