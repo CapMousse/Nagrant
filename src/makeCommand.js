@@ -27,7 +27,7 @@ makeCommand.copyFile = function (name, file, destination, force) {
     };
 };
 
-module.exports = (force, example, after, end) => {
+module.exports = function (force, example, after, end) {
     var noop = (cb) => cb(null);
 
     Clifier.Stdout.Text.warning("Initializing Nagrant");

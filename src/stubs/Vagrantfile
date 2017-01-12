@@ -1,7 +1,7 @@
 require 'yaml'
 
-if File.file?('Nagrant.yaml')
-    settings = YAML.load_file('Nagrant.yaml')
+if File.file?('Nagrant.yml')
+    settings = YAML.load_file('Nagrant.yml')
     confDir = File.expand_path('nodes_modules/nagrant', File.dirname(__FILE__))
 else
     puts "Nagrant config file don't exists"

@@ -11,7 +11,8 @@ var pjson       = require(__dirname + '/../package.json'),
 
 
 cli.addCommand('make', 'create nagrant box', function () {
-    MakeCommand(...this.getArguments().concat([cli.end]));
+    var args = Array.prototype.slice.call(arguments);
+    MakeCommand(...args.concat([cli.end]));
 })
 .addArgument('--force', "Force rewrite of Nagrant files", false, _ => true)
 .addArgument('--example', "Include creation of Nagrant.yml.example file", false, _ => true)
