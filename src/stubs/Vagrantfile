@@ -2,7 +2,7 @@ require 'yaml'
 
 if File.file?('Nagrant.yml')
     settings = YAML.load_file('Nagrant.yml')
-    confDir = File.expand_path('nodes_modules/nagrant', File.dirname(__FILE__))
+    confDir = File.expand_path('node_modules/nagrant', File.dirname(__FILE__))
 else
     puts "Nagrant config file don't exists"
     exit
@@ -34,23 +34,26 @@ Vagrant.configure("2") do |config|
       config.bindfs.bind_folder settings["root"], settings["root"]
     end
 
-    config.vm.provision :shell, path: File.expand_path(confDir + "/provision/setup.sh")
+    config.vm.provision :shell, path: File.expand_path(confDir + "/scripts/setup.sh")
 
-    if config.mongo?
-        config.vm.provision :shell, path: File.expand_path(confDir + "/provision/install-mongo.sh")
+    if settings["mongo"]
+        config.vm.provision :shell, path: File.expand_path(confDir + "/scripts/install-mongo.sh")
         config.vm.network "forwarded_port", guest: 27017, host: 27047, auto_correct: true
     end
 
-    if config.mysql?
-        config.vm.provision :shell, path: File.expand_path(confDir + "/provision/install-mysql.sh")
+    if settings["mysql"]
+        config.vm.provision :shell, path: File.expand_path(confDir + "/scripts/install-mysql.sh")
         config.vm.network "forwarded_port", guest: 3306, host: 33060, auto_correct: true
     end
 
-    if config.redis?
-        config.vm.provision :shell, path: File.expand_path(confDir + "/provision/install-redis.sh")
+    if settings["redis"]
+        config.vm.provision :shell, path: File.expand_path(confDir + "/scripts/install-redis.sh")
         config.vm.network "forwarded_port", guest: 6379, host: 63790, auto_correct: true
     end
 
-    config.vm.provision :shell, path: File.expand_path(confDir + "/provision/launch.sh"), run: 'always'
-    config.vm.provision :shell, path: "after.sh", run: 'always'
+    config.vm.provision :shell, path: File.expand_path(confDir + "/scripts/launch.sh"), run: 'always'
+
+    if File.file?('after.sh')
+        config.vm.provision :shell, path: "after.sh", run: 'always'
+    end
 end

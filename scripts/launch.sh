@@ -9,4 +9,5 @@ if [ ! -d node_modules ]; then
     sudo npm install
 fi
 
-PORT=8080 MONGODB=mongodb://localhost/hitbox forever start index.js -w -l forever.log
+echo forever -w -a -l forever.log -e err.log -o out.log --minUptime 1000 --spinSleepTime 1000 start index.js
+forever -w -a -l forever.log -e err.log -o out.log --minUptime 1000 --spinSleepTime 1000 start index.js
