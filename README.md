@@ -9,12 +9,9 @@ Nagrant can run on Linux, Windows and Mac and include Nodejs LTS (V6), MongoDB 3
 
 ## How to use
 
-You can either instal Nagrant as a global or local package. Note that if you install Nagrant locally, you must use the local binary to launch the command.
-
+You can either instal Nagrant as a global or local package.
 - global : `nagrant make`
 - local : `$(npm bin)/nagrant make`
-
-Nagrant must be installed in the current project (`npm install nagrant`) to be able to launch the vagrant box (script are required to install and launch the box)
 
 ## Command list : 
 
