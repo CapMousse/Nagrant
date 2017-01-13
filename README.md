@@ -14,8 +14,12 @@ You can either instal Nagrant as a global or local package. Note that if you ins
 - global : `nagrant make`
 - local : `$(npm bin)/nagrant make`
 
-## Options
+Nagrant must be installed in the current project (`npm install nagrant`) to be able to launch the vagrant box (script are required to install and launch the box)
 
-- `--force` : force rewriting of Nagrant files
-- `--example` : create a `Nagrant.yml.example` file
-- `--after` : create a `after.sh` file, executed after Nagrant provision
+## Command list : 
+
+	make [options]	create nagrant box
+		--force  	Force rewrite of Nagrant files
+	 	--example	Include creation of Nagrant.yml.example file
+	 	--after  	Include creation of after script
+	help          	Show help for nagrant
