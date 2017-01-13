@@ -1,0 +1,33 @@
+.TH "NAGRANT" "" "January 2017" "" ""
+.SH "NAME"
+\fBNagrant\fR
+.P
+Stable V1\.0\.0
+License MIT
+.SH Intro
+.P
+Nagrant is a completely disposable pre\-package vagrant box that provide you a simple development environment to create nodejs servers without requiring your to install anything (except nodejs and vagrant)\. Box can be created an launched in a minutes, with a minimal configuration !
+.P
+Nagrant can run on Linux, Windows and Mac and include Nodejs LTS (V6), MongoDB 3\.4, MySQL and Redis\. More will be added\.
+.SH How to use
+.P
+You can either instal Nagrant as a global or local package\.
+.RS 0
+.IP \(bu 2
+global : \fBnagrant make\fP
+.IP \(bu 2
+local : \fB$(npm bin)/nagrant make\fP
+
+.RE
+.SH Command list :
+.P
+.RS 2
+.nf
+make [options]    create nagrant box
+    \-\-force      Force rewrite of Nagrant files
+     \-\-example    Include creation of Nagrant\.yml\.example file
+     \-\-after      Include creation of after script
+help              Show help for nagrant
+.fi
+.RE
+
