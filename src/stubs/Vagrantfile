@@ -26,10 +26,10 @@ Vagrant.configure("2") do |config|
         vm.customize ["modifyvm", :id, "--cpus", settings["cpus"] ||= "1"]
         vm.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
         vm.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-        vm.customize ["modifyvm", :id, "--ostype", "Ubuntu_64"]
     end
 
-    config.vm.synced_folder "./", settings["root"], create: true
+    config.vm.synced_folder "./", settings["root"]
+
     if Vagrant.has_plugin?("vagrant-bindfs")
       config.bindfs.bind_folder settings["root"], settings["root"]
     end
@@ -51,9 +51,9 @@ Vagrant.configure("2") do |config|
         config.vm.network "forwarded_port", guest: 6379, host: 63790, auto_correct: true
     end
 
-    config.vm.provision :shell, path: File.expand_path(confDir + "/scripts/launch.sh"), run: 'always'
-
     if File.file?('after.sh')
-        config.vm.provision :shell, path: "after.sh", run: 'always'
+        config.vm.provision :shell, path: "after.sh", args: settings["root"], run: 'always'
     end
+
+    config.vm.provision :shell, path: File.expand_path(confDir + "/scripts/launch.sh"), args: settings["root"] ,run: 'always'
 end
