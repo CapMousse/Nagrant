@@ -1,10 +1,15 @@
 require 'yaml'
 
+if !File.directory?('node_modules/nagrant')
+    puts "\u001b[1m\u001b[31mNagrant is not installed for current project\u001b[0m\u001b[0m"
+    exit
+end
+
 if File.file?('Nagrant.yml')
     settings = YAML.load_file('Nagrant.yml')
     confDir = File.expand_path('node_modules/nagrant', File.dirname(__FILE__))
 else
-    puts "Nagrant config file don't exists"
+    puts "\u001b[1m\u001b[31mNagrant config file don't exists\u001b[0m\u001b[0m"
     exit
 end
 
