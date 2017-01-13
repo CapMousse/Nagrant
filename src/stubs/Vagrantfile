@@ -1,11 +1,11 @@
 require 'yaml'
 
-root = `npm root -g`
+root = `npm root -g`.gsub("\n",'')
 
-if File.directory?("#{root}/nagrant")
-    root = "#{root}/nagrant"
-elseif File.directory?('node_modules/nagrant')
+if File.directory?('node_modules/nagrant')
     root = 'node_modules/nagrant'
+elsif File.directory?("#{root}/nagrant")
+    root = "#{root}/nagrant"
 else
     puts "\u001b[1m\u001b[31mNagrant is not installed\u001b[0m\u001b[0m"
     exit
