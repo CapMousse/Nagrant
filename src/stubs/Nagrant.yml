@@ -1,5 +1,4 @@
 ---
-root: "/home/vagrant/node"
 ip: "192.168.10.10"
 memory: 2048
 cpus: 1
@@ -7,6 +6,10 @@ cpus: 1
 mysql: false
 redis: false
 mongo: false
+
+folders:
+  - map: ./
+    to: /home/vagrant/node
 
 ports:
   - from: 8080

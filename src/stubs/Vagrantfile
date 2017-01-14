@@ -24,8 +24,8 @@ Vagrant.require_version '>= 1.8.4'
 
 Vagrant.configure("2") do |config|
     config.vm.box = "ubuntu/trusty64"
-
     config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+    config.ssh.forward_agent = true
 
     config.vm.network :private_network, ip: settings["ip"] ||= "192.168.10.10"
 
@@ -40,10 +40,22 @@ Vagrant.configure("2") do |config|
         vm.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
 
-    config.vm.synced_folder "./", settings["root"]
+    if settings["root"]
+        config.vm.synced_folder "./", settings["root"]
 
-    if Vagrant.has_plugin?("vagrant-bindfs")
-      config.bindfs.bind_folder settings["root"], settings["root"]
+        if Vagrant.has_plugin?("vagrant-bindfs")
+          config.bindfs.bind_folder settings["root"], settings["root"]
+        end
+    end
+
+    if settings.include? 'folders'
+        settings["folders"].each do |folder|
+            config.vm.synced_folder folder["map"], folder["to"]
+
+            if Vagrant.has_plugin?("vagrant-bindfs")
+              config.bindfs.bind_folder folder["to"], folder["to"]
+            end
+        end
     end
 
     config.vm.provision :shell, path: File.expand_path(confDir + "/scripts/setup.sh")
