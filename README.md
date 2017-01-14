@@ -1,5 +1,5 @@
 # Nagrant
-[![Stable V1.0.0](https://img.shields.io/badge/stable-v1.0.0-blue.svg)](https://www.npmjs.com/package/nagrant) 
+[![Stable V1.0.0](https://img.shields.io/badge/stable-v1.0.0-blue.svg)](https://www.npmjs.com/package/nagrant)
 ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## Intro
@@ -13,7 +13,7 @@ You can either instal Nagrant as a global or local package.
 - global : `nagrant make`
 - local : `$(npm bin)/nagrant make`
 
-## Command list : 
+## Command list :
 
 	make [options]	create nagrant box
 		--force  	Force rewrite of Nagrant files
@@ -24,6 +24,10 @@ You can either instal Nagrant as a global or local package.
 ## Requirements
 
 Before using Nagrant, you must install Vagrant and any supported virtualization software (Virtualbox, VMWare or Parallels).
+
+## Root
+
+The `root` property is used to launch the node deamon. It must point the folder where you want to launch your nodejs server. By default, it use the same value as the default shared folder.
 
 ## Folders
 

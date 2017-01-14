@@ -7,6 +7,8 @@ mysql: false
 redis: false
 mongo: false
 
+root: /home/vagrant/node
+
 folders:
   - map: ./
     to: /home/vagrant/node

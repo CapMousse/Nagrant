@@ -40,14 +40,6 @@ Vagrant.configure("2") do |config|
         vm.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
 
-    if settings["root"]
-        config.vm.synced_folder "./", settings["root"]
-
-        if Vagrant.has_plugin?("vagrant-bindfs")
-          config.bindfs.bind_folder settings["root"], settings["root"]
-        end
-    end
-
     if settings.include? 'folders'
         settings["folders"].each do |folder|
             config.vm.synced_folder folder["map"], folder["to"]
@@ -55,6 +47,14 @@ Vagrant.configure("2") do |config|
             if Vagrant.has_plugin?("vagrant-bindfs")
               config.bindfs.bind_folder folder["to"], folder["to"]
             end
+        end
+    end
+
+    if settings["root"] && !settings.include?('folders')
+        config.vm.synced_folder "./", settings["root"]
+
+        if Vagrant.has_plugin?("vagrant-bindfs")
+          config.bindfs.bind_folder settings["root"], settings["root"]
         end
     end
 
