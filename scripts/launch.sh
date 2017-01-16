@@ -1,7 +1,6 @@
 #!/bin/bash
 
 echo "Launching node js server"
-
 cd $1
 
 if [ ! -d node_modules ]; then
@@ -9,4 +8,4 @@ if [ ! -d node_modules ]; then
     sudo npm install
 fi
 
-nodemon -L index.js > out.log 2>&1 &
+nodemon -L $2 $3 > out-$2.log 2>&1 &

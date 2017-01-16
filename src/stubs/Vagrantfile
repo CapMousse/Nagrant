@@ -1,9 +1,9 @@
-require 'yaml'
+require "yaml"
 
-root = `npm root -g`.gsub("\n",'')
+root = `npm root -g`.gsub("\n","")
 
-if File.directory?('node_modules/nagrant')
-    root = 'node_modules/nagrant'
+if File.directory?("node_modules/nagrant")
+    root = "node_modules/nagrant"
 elsif File.directory?("#{root}/nagrant")
     root = "#{root}/nagrant"
 else
@@ -13,14 +13,14 @@ end
 
 confDir = File.expand_path(root, File.dirname(__FILE__))
 
-if File.file?('Nagrant.yml')
-    settings = YAML.load_file('Nagrant.yml')
+if File.file?("Nagrant.yml")
+    settings = YAML.load_file("Nagrant.yml")
 else
     puts "\u001b[1m\u001b[31mNagrant config file don't exists\u001b[0m\u001b[0m"
     exit
 end
 
-Vagrant.require_version '>= 1.8.4'
+Vagrant.require_version ">= 1.8.4"
 
 Vagrant.configure("2") do |config|
     config.vm.box = "ubuntu/trusty64"
@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
         vm.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
 
-    if settings.include? 'folders'
+    if settings.include?("folders")
         settings["folders"].each do |folder|
             config.vm.synced_folder folder["map"], folder["to"]
 
@@ -50,7 +50,7 @@ Vagrant.configure("2") do |config|
         end
     end
 
-    if settings["root"] && !settings.include?('folders')
+    if settings["root"] && !settings.include?("folders")
         config.vm.synced_folder "./", settings["root"]
 
         if Vagrant.has_plugin?("vagrant-bindfs")
@@ -75,9 +75,11 @@ Vagrant.configure("2") do |config|
         config.vm.network "forwarded_port", guest: 6379, host: 63790, auto_correct: true
     end
 
-    if File.file?('after.sh')
-        config.vm.provision :shell, path: "after.sh", args: settings["root"], run: 'always'
+    if File.file? "after.sh"
+        config.vm.provision :shell, path: "after.sh", args: settings["nodemon"], run: "always"
     end
 
-    config.vm.provision :shell, path: File.expand_path(confDir + "/scripts/launch.sh"), args: settings["root"] ,run: 'always'
+    settings["nodemon"].each do |nodemon|
+        config.vm.provision :shell, path: File.expand_path(confDir + "/scripts/launch.sh"), args: [nodemon["dir"], nodemon["script"], nodemon["params"] || ""] ,run: "always"
+    end
 end
