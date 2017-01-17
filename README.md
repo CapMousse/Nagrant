@@ -25,9 +25,23 @@ You can either instal Nagrant as a global or local package.
 
 Before using Nagrant, you must install Vagrant and any supported virtualization software (Virtualbox, VMWare or Parallels).
 
-## Root
+## Node
 
-The `root` property is used to launch the node deamon. It must point the folder where you want to launch your nodejs server. By default, it use the same value as the default shared folder.
+To add any node instance to the vagran box, you can edit the `node` property of the `Nagrant.yml` file.
+
+	node:
+	  - dir: /home/vagrant/node/
+	    script: index.js
+
+To send parameters to your node instance, you can use the `params` property. Any property will be set as environment variable reachable with `process.env`.
+
+	node:
+	  - dir: /home/vagrant/node/
+	    script: index.js
+	    params:
+	   	  - PORT: 8080
+	   	  - MONGODB_NAME: testproject
+
 
 ## Folders
 

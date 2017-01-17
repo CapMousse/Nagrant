@@ -11,7 +11,7 @@ folders:
   - map: ./
     to: /home/vagrant/node
 
-nodemon:
+node:
   - dir: /home/vagrant/node/
     script: index.js
 

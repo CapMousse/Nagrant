@@ -76,10 +76,10 @@ Vagrant.configure("2") do |config|
     end
 
     if File.file? "after.sh"
-        config.vm.provision :shell, path: "after.sh", args: settings["nodemon"], run: "always"
+        config.vm.provision :shell, path: "after.sh", run: "always"
     end
 
-    settings["nodemon"].each do |nodemon|
-        config.vm.provision :shell, path: File.expand_path(confDir + "/scripts/launch.sh"), args: [nodemon["dir"], nodemon["script"], nodemon["params"] || ""] ,run: "always"
+    settings["node"].each do |node|
+        config.vm.provision :shell, path: File.expand_path(confDir + "/scripts/launch.sh"), args: [node["dir"], node["script"]], env: node["params"] || {}, run: "always"
     end
 end
