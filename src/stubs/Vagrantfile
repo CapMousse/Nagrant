@@ -80,6 +80,7 @@ Vagrant.configure("2") do |config|
     end
 
     settings["node"].each do |node|
-        config.vm.provision :shell, path: File.expand_path(confDir + "/scripts/launch.sh"), args: [node["dir"], node["script"]], env: node["params"] || {}, run: "always"
+        params = node.include?("params") ? Hash[*node["params"]] : {}
+        config.vm.provision :shell, path: File.expand_path(confDir + "/scripts/launch.sh"), args: [node["dir"], node["script"]], env: params, run: "always"
     end
 end
