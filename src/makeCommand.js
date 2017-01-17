@@ -30,11 +30,6 @@ makeCommand.copyFile = function (name, file, destination, force) {
 module.exports = function (force, example, after, end) {
     var noop = (cb) => cb(null);
 
-    if (!fs.existsSync(basePath + '/node_modules/nagrant')) {
-        Clifier.Stdout.Text.error("Nagrant is not installed for current project");
-        return;
-    }
-
     Clifier.Stdout.Text.warning("Initializing Nagrant");
 
     async.parallel([
