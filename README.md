@@ -1,5 +1,5 @@
 # Nagrant
-[![Stable V1.0.0](https://img.shields.io/badge/stable-v1.0.0-blue.svg)](https://www.npmjs.com/package/nagrant)
+[![Stable V1.1.0](https://img.shields.io/badge/stable-v1.1.0-blue.svg)](https://www.npmjs.com/package/nagrant)
 ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## Intro
