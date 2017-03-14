@@ -15,11 +15,22 @@ You can either instal Nagrant as a global or local package.
 
 ## Command list :
 
-	make [options]	create nagrant box
-		--force  	Force rewrite of Nagrant files
-	 	--example	Include creation of Nagrant.yml.example file
-	 	--after  	Include creation of after script
-	help          	Show help for nagrant
+	COMMANDS : 
+
+	make --force --example --after	create nagrant box
+	help <command>                	Show help
+
+	ARGUMENTS : 
+
+	--force                       	Force rewrite of Nagrant files
+	--example                     	Include creation of Nagrant.yml.example file
+	--after                       	Include creation of after script
+
+	OPTIONS : 
+
+	--quiet                      		Quiet mode
+	-v, --verbose                		Verbose mode
+
 
 ## Requirements
 

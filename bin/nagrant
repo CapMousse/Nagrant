@@ -4,18 +4,20 @@
 
 process.title = "nagrant";
 
-var pjson       = require(__dirname + '/../package.json'),
-    Clifier     = require('clifier'),
-    cli         = new Clifier.Cli('nagrant', pjson.version, pjson.description),
-    MakeCommand = require(__dirname + '/../src/makeCommand.js');
+const pjson       = require(__dirname + '/../package.json');
+const cli         = require('clifier');
+const MakeCommand = require(__dirname + '/../src/makeCommand.js');
 
+cli
+    .name('nagrant')
+    .version(pjson.version)
+    .description(pjson.description);
 
-cli.addCommand('make', 'create nagrant box', function () {
-    var args = Array.prototype.slice.call(arguments);
-    MakeCommand(...args.concat([cli.end]));
-})
-.addArgument('--force', "Force rewrite of Nagrant files", false, _ => true)
-.addArgument('--example', "Include creation of Nagrant.yml.example file", false, _ => true)
-.addArgument('--after', "Include creation of after script", false, _ => true);
+cli
+    .command('make', 'create nagrant box')
+        .argument('--force', "Force rewrite of Nagrant files", false, _ => true)
+        .argument('--example', "Include creation of Nagrant.yml.example file", false, _ => true)
+        .argument('--after', "Include creation of after script", false, _ => true)
+        .action(MakeCommand);
 
 cli.run();

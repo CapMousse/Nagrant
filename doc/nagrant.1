@@ -1,15 +1,15 @@
-.TH "NAGRANT" "" "January 2017" "" ""
+.TH "NAGRANT" "" "Mars 2017" "" ""
 .SH "NAME"
 \fBNagrant\fR
 .P
-Stable V1\.0\.0
+Stable V1\.2\.0
 License MIT
-.SH Intro
+.SH INTRO
 .P
 Nagrant is a completely disposable pre\-package vagrant box that provide you a simple development environment to create nodejs servers without requiring your to install anything (except nodejs and vagrant)\. Box can be created an launched in a minutes, with a minimal configuration !
 .P
 Nagrant can run on Linux, Windows and Mac and include Nodejs LTS (V6), MongoDB 3\.4, MySQL and Redis\. More will be added\.
-.SH How to use
+.SH HOW TO USE
 .P
 You can either instal Nagrant as a global or local package\.
 .RS 0
@@ -19,15 +19,29 @@ global : \fBnagrant make\fP
 local : \fB$(npm bin)/nagrant make\fP
 
 .RE
-.SH Command list :
+.SH COMMAND
 .P
 .RS 2
 .nf
-make [options]    create nagrant box
-    \-\-force      Force rewrite of Nagrant files
-     \-\-example    Include creation of Nagrant\.yml\.example file
-     \-\-after      Include creation of after script
-help              Show help for nagrant
+make \-\-force \-\-example \-\-after	create nagrant box
+help <command>                	Show help
+.fi
+.RE
+.SH ARGUMENTS
+.P
+.RS 2
+.nf
+\-\-force                       	Force rewrite of Nagrant files
+\-\-example                     	Include creation of Nagrant.yml.example file
+\-\-after                       	Include creation of after script
+.fi
+.RE
+.SH OPTIONS
+.P
+.RS 2
+.nf
+ \-\-quiet                      	Quiet mode
+ \-v, \-\-verbose                	Verbose mode
 .fi
 .RE
 
