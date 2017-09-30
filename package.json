@@ -1,6 +1,6 @@
 {
   "name": "nagrant",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Nagrant is a pre-packaged Vagrant box providing a default environment in a minute",
   "homepage": "https://github.com/CapMousse/Nagrant",
   "scripts": {
@@ -22,8 +22,8 @@
   "author": "Jérémy Barbe <echo@jeremy.sh> (http://jeremy.sh)",
   "license": "MIT",
   "dependencies": {
-    "async": "^2.1.4",
-    "clifier": "2.x"
+    "async": "^2.5.0",
+    "clifier": "^2.1.1"
   },
   "man": "./doc/nagrant.1",
   "preferGlobal": true,

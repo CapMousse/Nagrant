@@ -5,7 +5,7 @@
 ## Intro
 Nagrant is a completely disposable pre-package vagrant box that provide you a simple development environment to create nodejs servers without requiring your to install anything (except nodejs and vagrant). Box can be created an launched in a minutes, with a minimal configuration !
 
-Nagrant can run on Linux, Windows and Mac and include Nodejs v7, MongoDB 3.4, MySQL and Redis. More will be added.
+Nagrant can run on Linux, Windows and Mac and include Nodejs v8, MongoDB 3.4, MySQL and Redis. More will be added.
 
 ## How to use
 
